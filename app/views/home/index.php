@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<!-- saved from url=(0024)http://localhost/ka/pos/ -->
 <html lang="en">
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>泛策略</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" type="text/css" href="css/main.css" media="all">
     <script type="text/javascript" src="css/jquery.min.js"></script>
+    <?php echo css('main.css') ?>
 </head>
 
 <body>
     <div class="container">
         <div class="home">
-            <div class="img"><img src="images/1.jpg" alt=""></div>
+            <div class="img"><img src="<?php echo image('1.jpg') ?>" alt=""></div>
             <div class="form">
                 <div class="title">
-                    <div class="img"><img src="images/title.png" alt=""></div> 
+                    <div class="img"><img src="<?php echo image('title.png') ?>" alt=""></div> 
                 </div>
                 <div class="content">
                     <form id="form_contenct">
@@ -28,30 +27,31 @@
                             <label>请输入您的电话<span>*</span></label>
                             <input type="text" id="phone" name="phone" placeholder="">
                         </div>
+                        <input type="hidden" name="c" value="<?php echo $c ?>">
                     </form>
-                    <a class="btn" href="javascript:;" id="submit_contect">免费领取</a>
+                    <a class="btn" href="javascript:;" id="submit_contect" onclick="submit_contect()">免费领取</a>
                 </div>
             </div>
             <section class="banner1">
                 <div class="title">
-                    <div class="img"><img src="images/title-1.png" alt=""></div>  
+                    <div class="img"><img src="<?php echo image('title-1.png') ?>" alt=""></div>  
                 </div> 
 
                     <ul class="clear">
                         <li>
-                                <div class="img"><img src="images/icon1.png" alt=""></div> 
+                                <div class="img"><img src="<?php echo image('icon1.png') ?>" alt=""></div> 
                                 <div class="text">
                                    <p>免息操盘一周，资金免费使用一周</p>
                                </div> 
                         </li>
                         <li>
-                                <div class="img"><img src="images/icon2.png" alt=""></div> 
+                                <div class="img"><img src="<?php echo image('icon2.png') ?>" alt=""></div> 
                                 <div class="text">
                                    <p>每天免息50万元操盘额度</p>
                                </div> 
                         </li>
                         <li>
-                                <div class="img"><img src="images/icon3.png" alt=""></div> 
+                                <div class="img"><img src="<?php echo image('icon3.png') ?>" alt=""></div> 
                                 <div class="text">
                                    <p>放大您炒股资金8倍，起配金额1250</p>
                                </div> 
@@ -61,7 +61,7 @@
             </section>
             <section class="banner2">
                 <div class="title">
-                    <div class="img"><img src="images/title-2.png" alt=""></div>                    
+                    <div class="img"><img src="<?php echo image('title-2.png') ?>" alt=""></div>                    
                 </div>
                 <div class="text">
                     <h2>申请免息操盘用户活动规则</h2>
@@ -81,6 +81,24 @@
             </footer>
         </div>
     </div>
+    <?php echo js('jquery.min.js') ?>
+	<script>
+		function submit_contect() {
+            $.ajax({
+                url: '<?php echo base_url('index/submitContect') ?>',
+                type: 'POST',
+                dataType: 'json',
+                data: $('#form_contenct').serialize(),
+                success:function(data) {
+                    if(data.status == 200) {
+                        alert('申请成功');
+                        location.reload();
+                    }else {
+                        alert(data.msg);
+                    }
+                }
+            })
+		}
+    </script>
 </body>
-
 </html>
